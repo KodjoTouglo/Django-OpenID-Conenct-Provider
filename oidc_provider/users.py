@@ -1,7 +1,8 @@
 import copy
 
 from django.contrib.auth import authenticate
-from django.contrib.auth import get_user_model
+# from django.contrib.auth import get_user_model
+from accounts.models import User
 from django.template.loader import render_to_string
 
 from oidcop.user_authn.user import (create_signed_jwt, LABELS)
@@ -126,7 +127,7 @@ class UserInfo(object):
         user_id = username
         client_id = client id, ex: 'mHwpZsDeWo5g'
         """
-        user = get_user_model().objects.filter(username=user_id).first()
+        user = User.objects.filter(username=user_id).first()
         if not user:  # pragma: no cover
             # Todo: raise exception here, this wouldn't be possible.
             return {}
