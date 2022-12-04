@@ -4,8 +4,8 @@ import logging
 import pytz
 
 from django.conf import settings
-# from django.contrib.auth import get_user_model
-from accounts.models import User
+from django.contrib.auth import get_user_model
+# from accounts.models import User
 from django.db import models
 from django.utils import timezone
 
@@ -383,7 +383,7 @@ class OidcSession(TimeStampedModel):
     """
 
     user_uid = models.CharField(max_length=120, blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,
                              blank=True, null=True)
     client = models.ForeignKey(OidcRelyingParty, on_delete=models.CASCADE,
                                blank=True, null=True)
@@ -445,7 +445,7 @@ class OidcSession(TimeStampedModel):
                 user_id = v[1]['user_id']
                 client_id = v[1]['subordinate'][0]
                 data['user_uid'] = user_id
-                data['user'] = User.objects.get(username=user_id)
+                data['user'] = get_user_model().objects.get(username=user_id)
                 data['client'] = OidcRelyingParty.objects.get(
                     client_id=client_id)
             elif field_name == 'client_sessioninfo':

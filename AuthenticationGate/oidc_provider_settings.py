@@ -350,7 +350,7 @@ OIDCOP_CONFIG = {
                 "kwargs": {
                     # map claims to django users attributes here:
                     "claims_map": {
-                        "phone_number": "telephone",
+                        # "phone_number": "telephone",
                         "family_name": "last_name",
                         "given_name": "first_name",
                         "email": "email",

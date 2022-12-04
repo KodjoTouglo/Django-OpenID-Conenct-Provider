@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-# from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
 
 
 class User(AbstractUser):
@@ -48,7 +48,7 @@ class User(AbstractUser):
 
 
 class PersistentId(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     persistent_id = models.CharField("Persistent Stored ID", max_length=254, blank=True, null=True)
     recipient_id = models.CharField("Relying-Party entityID", max_length=254, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
